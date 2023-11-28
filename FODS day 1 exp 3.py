@@ -1,0 +1,12 @@
+import pandas as pd
+student_data = pd.read_csv('C:\Students_Data.csv')
+correlation_per_course = student_data.groupby('Course').apply(lambda x: x['Hours_Studied'].corr(x['Score']))
+strongest_correlation_course = correlation_per_course.idxmax()
+weakest_correlation_course = correlation_per_course.idxmin()
+average_data = student_data.groupby('Course').agg({'Score': 'mean', 'Hours_Studied': 'mean'}).reset_index()
+print("Correlation between study hours and scores for each course:")
+print(correlation_per_course)
+print("\nCourse with the strongest correlation: {}".format(strongest_correlation_course))
+print("Course with the weakest correlation: {}".format(weakest_correlation_course))
+print("\nAverage score and average hours studied for each course:")
+print(average_data)
